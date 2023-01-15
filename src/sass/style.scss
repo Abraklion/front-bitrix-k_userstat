@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+// Настройка с библиотекой
+//@use 'library/my-bootstrap/general/variables' with (
+//  $width-container: 100%,
+//  $orientation: 'desktop-first',
+//  $yellow: #ecbd09,
+//  $container: (
+//    xxl: (breakpoint: 1400px, max-width: 100%),
+//    xl: (breakpoint: 1200px, max-width: 100%),
+//    lg: (breakpoint: 992px, max-width: 100%),
+//    md: (breakpoint: 768px, max-width: 100%),
+//    sm: (breakpoint: 576px, max-width: 100%),
+//  )
+//);
+
+// Библиотека
+//@use "library/my-bootstrap";
+
+// Шрифты
+//@use "fonts";
+
+// Аниация
+//@use 'animations';
+
+// Блоки
+//@use "components/page";
+//@use "components/button";
+//@use "components/modal";
+//@use "components/form";
+//@use "components/dropdown";
+//@use "components/option-panel";
+//@use "components/pagination";
+//@use "components/loader";
+//@use "components/top-panel";
+//@use "components/result";
+
+// Настройка без библиотеки
+
+// Шрифты
+@use "fonts";
+
+// Нормализация css
+@use "normalize";
+
+// Анимации
+@use 'animations';
+
+// Базовые настройки
+@use "core";
+
+// Служебные класы
+@use "service";
+
+// Блоки
+//@use "components/container";
+@use "components/dropdown";
+@use "components/option-panel";
+@use "components/form";
+@use "components/custom";
+
+
+
+
+

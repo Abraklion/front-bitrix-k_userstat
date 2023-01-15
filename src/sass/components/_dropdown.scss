@@ -1,0 +1,259 @@
+@use "sass:color";
+
+$color: #fbfbfb;
+$color2: #181818;
+$color3: #e7e7e1;
+
+$select: #98948a;
+
+.dropdown{
+  position: relative;
+
+  background-color: #fff;
+
+  user-select: none;
+
+  &--input {
+
+    & .dropdown__toggle {
+      cursor: text;
+    }
+
+  }
+}
+
+.dropdown__toggle{
+  min-height: 44px;
+
+  position: relative;
+
+  padding: 12px 40px 12px 9px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+  line-height: 18px;
+
+  color: $color2;
+
+  border: 1px solid color.scale($color2, $lightness: 70%);
+  border-radius: 2px;
+
+  cursor: pointer;
+
+  white-space: nowrap; /* Запрещаем перенос строк */
+  overflow: hidden; /* Обрезаем все, что не помещается в область */
+  text-overflow: ellipsis; /* Добавляем многоточие */
+
+  &::before{
+    content: '';
+
+    width: 40px;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    background-color: #fff;
+    background-image: url(../img/arrow-icon.svg);
+    background-position: center;
+    background-size: 16px;
+    background-repeat: no-repeat;
+
+    opacity: 0.5;
+
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover{
+
+    &::before{
+      opacity: 0.8;
+    }
+
+  }
+}
+
+.dropdown__options{
+  width: 100%;
+  max-height: 421px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  position: absolute;
+  top: 100%;
+  z-index: 200;
+
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 0;
+
+  background-color: #fff;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+  line-height: 28px;
+
+  border: 1px solid color.scale($color2, $lightness: 73%);
+
+  box-shadow: 0 4px 6px -2px color.scale($color2, $lightness: 70%);
+
+  transition: width 0.3s ease;
+
+  //  http://htmlbook.ru/blog/polzovatelskie-skrollbary-v-webkit - Пользовательские скроллбары в WebKit
+
+  // Кнопки боковые
+  &::-webkit-scrollbar-button {
+    width: 5px;
+    height: 0;
+  }
+
+  // Цвет дорожки, по которой двигается бегунок прокрутки.
+  &::-webkit-scrollbar-track {
+    background-color: color.scale($color2, $lightness: 83%);
+    border-radius: 5px;
+  }
+
+  // Цвет бегунка полосы, а так же его закругление.
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: color.scale($color2, $lightness: 63%);
+  }
+
+  // Основная ширина полосы прокрутки.
+  &::-webkit-scrollbar{
+    width: 5px;
+  }
+
+  &--right {
+    right: 0;
+  }
+
+  &--center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &--stretch{
+    width: 207.2%;
+  }
+
+  &--top-position{
+    top: auto;
+    bottom: 100%;
+
+    margin: 0 0 4px 0;
+  }
+}
+
+.dropdown__item{
+  padding: 4px 9px;
+
+  background-color: color.scale($color, $lightness: 70%);
+
+  color: rgba(color.scale($color2, $lightness: 10%),0.8);
+
+  border-bottom: 1px solid color.scale($color2, $lightness: 85%);
+
+  white-space: nowrap; /* Запрещаем перенос строк */
+  overflow-x: hidden; /* Обрезаем все, что не помещается в область */
+  text-overflow: ellipsis; /* Добавляем многоточие */
+
+  cursor: pointer;
+
+  transition: background-color 0.15s ease, color 0.2s ease;
+
+  &:last-child{
+    border-bottom: none;
+  }
+
+  &:hover{
+    background-color: color.scale($color, $lightness: -8%);
+
+    color: rgba(color.scale($color2, $lightness: 20%),1);
+  }
+}
+
+.dropdown__option-panel{
+  position: sticky;
+
+  bottom: 0;
+}
+
+.dropdown__search-box{
+  order: -1;
+
+  position: sticky;
+  top: 0;
+
+  background-color: color.scale($color, $lightness: 60%);
+
+  &::after{
+    content: '';
+
+    width: calc(100%);
+    height: 1px;
+
+    position: absolute;
+    top: 42px;
+    left: 0;
+
+    background-color: color.scale($color2, $lightness: 75%);
+
+    box-shadow: 0 3px 4px color.scale($color, $lightness: -15%);
+  }
+}
+
+.dropdown__search{
+  margin: 0 30px 0 9px;
+  padding: 7px 0;
+
+  color: $color2;
+
+  white-space: nowrap; /* Запрещаем перенос строк */
+  overflow-x: hidden; /* Обрезаем все, что не помещается в область */
+
+  outline: 0;
+
+  &:empty:not(:focus):before{
+    content:attr(data-ph);
+  }
+
+  &::selection {
+    color: #fff; /* Цвет текста */
+    background: $select; /* Цвет фона */
+  }
+
+}
+
+.dropdown__search-plug{
+  padding: 5px 8px;
+
+  font-size: 15px;
+  line-height: 28px;
+
+  opacity: 0.7;
+}
+
+.dropdown__search-reset{
+  position: absolute;
+  top: 11px;
+  right: 8px;
+
+  padding: 10px;
+  margin: 0;
+
+  background-color: $color;
+  background-image: url(../img/close-icon.svg);
+  background-position: center;
+  background-size: 10px;
+  background-repeat: no-repeat;
+
+  border: none;
+
+  cursor: pointer;
+}

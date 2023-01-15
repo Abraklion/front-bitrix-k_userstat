@@ -1,0 +1,12 @@
+@use "../general/variables" as v;
+@use "../general/mixins" as m;
+
+// region " 1 Выровнить содержимое сетки по горизонтали "
+
+.g-justify-items{
+  @include m.rulesBreakpoint(v.$container,(
+    justify-items: left
+  ),'left');
+}
+
+// endregion

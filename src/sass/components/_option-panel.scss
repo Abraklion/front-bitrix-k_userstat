@@ -1,0 +1,66 @@
+@use "sass:color";
+
+$color: #fbfbfb;
+$color2: #181818;
+$color3: #e7e7e1;
+
+.option-panel{
+  background-color: color.scale($color, $lightness: 70%);
+
+  line-height: 0;
+
+  border-top: 1px solid color.scale($color2, $lightness: 70%);
+}
+
+.option-panel__list{
+  display: flex;
+  justify-content: space-between;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.option-panel__item{
+  flex: 1 1 auto;
+
+  height: 36px;
+
+  padding: 6px 0;
+
+  opacity: 0.7;
+
+  cursor: pointer;
+
+  transition: opacity 0.2s ease;
+
+  &:not(:last-child){
+    border-right: 1px solid color.scale($color2, $lightness: 70%);
+  }
+
+  &:hover{
+    opacity: 1;
+  }
+
+  &:active{
+    opacity: 0.5;
+  }
+
+  &--stretch{
+    background-image: url(../img/arrow-divider-horizontal-on-icon.svg);
+    background-position: center;
+    background-size: 24px;
+    background-repeat: no-repeat;
+  }
+
+  &--stretch-off{
+    background-image: url(../img/arrow-divider-horizontal-off-icon.svg);
+  }
+
+  &--search{
+    background-image: url(../img/search-icon.svg);
+    background-position: center;
+    background-size: 20px;
+    background-repeat: no-repeat;
+  }
+}

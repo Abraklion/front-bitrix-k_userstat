@@ -1,0 +1,12 @@
+@use "../general/variables" as v;
+@use "../general/mixins" as m;
+
+// region " relative "
+
+.p {
+  @include m.rulesBreakpoint(v.$container, (
+          position: relative,
+  ), 'relative');
+}
+
+// endregion
