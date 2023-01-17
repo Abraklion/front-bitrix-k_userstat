@@ -1,0 +1,72 @@
+@use "sass:color";
+
+$color: #fbfbfb;
+$color2: #181818;
+$color3: #e7e7e1;
+
+.button{
+  user-select: none;
+
+  vertical-align: middle;
+
+  position: relative;
+
+  padding: 6px;
+  margin: 0;
+
+  background-color: color.scale($color, $lightness: 10%);
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+
+  border: 1px solid color.scale($color2, $lightness: 90%);
+  border-radius: 4px;
+
+  //box-shadow: inset 0 0 5px color.scale($color2, $lightness: 85%);
+
+  cursor: pointer;
+
+  &--icon-excel{
+    width: 38px;
+    height: 38px;
+
+    outline: none!important;
+
+    &::before {
+      content: '';
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+      width: 23px;
+      height: 23px;
+
+      background-image: url(../img/icons8-microsoft-excel.svg);
+      background-position: center;
+      background-size: 23px;
+      background-repeat: no-repeat;
+
+      transform: translate(-50%,-50%);
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+
+      &::before{
+        transform: translate(-50%,-50%) scale(1.1);
+      }
+
+    }
+
+    &:active {
+
+      &::before{
+        transform: translate(-50%,-50%) scale(1);
+      }
+
+    }
+  }
+}

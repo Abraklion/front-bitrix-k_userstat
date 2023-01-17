@@ -21,6 +21,12 @@ export default class VisitorPattern {
             let idSelectA = option.dataset.selectOption,
                 input = this.$selectB.parentElement.querySelector(this.resetParamsB.input)
 
+            this.$pasteOptions.insertAdjacentHTML('afterbegin', `
+              <div class="dropdown__item" data-select-option="" title="Не выбран">
+                ---
+              </div>
+            `)
+
             input.setAttribute('value', idSelectA)
 
             btnDeps.disabled = false;

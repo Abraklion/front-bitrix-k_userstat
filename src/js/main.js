@@ -4,6 +4,8 @@ import DropdownSelect from './library/sumbiot/modules/dropdown/components/dropdo
 
 import SearchInSelectPlugin from "./plugin/search-in-select.plugin";
 
+import FormUsersStatisticsComponent from "./components/form-users-statistics.component";
+
 $(function(){
 
   // выподающий список select
@@ -16,52 +18,54 @@ $(function(){
   // выподающий список поиск
   new SearchInSelectPlugin('.js-option-panel','.dropdown__search-box')
 
+  // компонент форма
+  new FormUsersStatisticsComponent('#mainForm')
 
-  $('.js-btn-xl').on('click', async function(e) {
-    e.preventDefault()
-
-    let formData = new FormData()
-
-    formData.append('build', this.dataset.build)
-    formData.append('id', this.dataset.id)
-    formData.append('dataSob', this.dataset.sob)
-
-    console.log(this.dataset.build,this.dataset.id, this.dataset.sob)
-
-    let path = await getPathToFile(formData)
-
-    console.log(path)
-
-    downloadLink(path)
-  })
-
-  async function getPathToFile(data) {
-    // делаем ajax запрос в компонент bizproc:otipb.new к методу getUsersAction()
-    const response = await BX.ajax.runComponentAction('bizproc:k_userstat', 'getPathToFile', {
-      mode: 'class',
-      data: data
-    })
-
-    return response.data.result
-  }
-
-  function downloadLink(path) {
-    /**
-     * скачивает файлы
-     * path -> путь к файлу
-     */
-    const element = document.createElement('a');
-
-    element.setAttribute('href', path);
-    element.setAttribute('download', '');
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
-  }
+  // $('.js-btn-xl').on('click', async function(e) {
+  //   e.preventDefault()
+  //
+  //   let formData = new FormData()
+  //
+  //   formData.append('build', this.dataset.build)
+  //   formData.append('id', this.dataset.id)
+  //   formData.append('dataSob', this.dataset.sob)
+  //
+  //   console.log(this.dataset.build,this.dataset.id, this.dataset.sob)
+  //
+  //   let path = await getPathToFile(formData)
+  //
+  //   console.log(path)
+  //
+  //   downloadLink(path)
+  // })
+  //
+  // async function getPathToFile(data) {
+  //   // делаем ajax запрос в компонент bizproc:otipb.new к методу getUsersAction()
+  //   const response = await BX.ajax.runComponentAction('bizproc:k_userstat', 'getPathToFile', {
+  //     mode: 'class',
+  //     data: data
+  //   })
+  //
+  //   return response.data.result
+  // }
+  //
+  // function downloadLink(path) {
+  //   /**
+  //    * скачивает файлы
+  //    * path -> путь к файлу
+  //    */
+  //   const element = document.createElement('a');
+  //
+  //   element.setAttribute('href', path);
+  //   element.setAttribute('download', '');
+  //
+  //   element.style.display = 'none';
+  //   document.body.appendChild(element);
+  //
+  //   element.click();
+  //
+  //   document.body.removeChild(element);
+  // }
 
 });
 

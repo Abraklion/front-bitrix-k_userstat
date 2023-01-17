@@ -19,8 +19,6 @@ export default class ButtonExcelComponent extends Component {
     super(id,options);
 
     this.formData = options.formData
-
-    this._init()
   }
 
   /**
@@ -28,17 +26,31 @@ export default class ButtonExcelComponent extends Component {
    * @return {void}
    */
   _init() {
-    this.parent = document.querySelector('.js-wrapper-btn')
-    this.parent.style.position = 'relative'
+    this._configureElement()
+
+    this.parent = document.querySelector('.js-form__buttons-inner')
 
     this.parent.querySelector(`#${this.$el.getAttribute('id')}`)?.remove()
     this.parent.append(this.$el)
 
+    console.log('1')
+
     this.$el.addEventListener('click', e => {
       e.preventDefault()
 
+      console.log(this.formData)
+
+      for(let [name, value] of this.formData) {
+        console.log(`${name} = ${value}`); // key1=value1, потом key2=value2
+      }
+
     })
 
+  }
+
+  _configureElement() {
+    this.$el.classList.add('button','button--icon-excel')
+    this.$el.setAttribute('title', 'Скачать Excel')
   }
 
   /**

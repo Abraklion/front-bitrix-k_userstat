@@ -119,7 +119,7 @@ export default class ChainingSelectInFormPlugin {
           return this.renderTemplateB(option)
         })
 
-        this.$pasteOptions.insertAdjacentHTML('afterbegin', html.join(''))
+        this.$pasteOptions.insertAdjacentHTML('beforeend', html.join(''))
 
       } else {
 
