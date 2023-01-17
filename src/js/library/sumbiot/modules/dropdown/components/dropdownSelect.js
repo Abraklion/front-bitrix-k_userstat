@@ -38,7 +38,7 @@ export default class DropdownSelect extends Dropdown {
         else if (e.target && e.target.matches(this._dropdownOptionSelector)){
           e.preventDefault()
 
-          this._select(dropdown,e.target)
+          this.select(dropdown,e.target)
         }
       })
 
@@ -61,7 +61,7 @@ export default class DropdownSelect extends Dropdown {
    * @param {HTMLElement} optionActive - пункт выпадающего списка
    * @return {void}
    */
-  _select(dropdown,optionActive) {
+  select(dropdown,optionActive) {
     const options = dropdown.querySelectorAll(this._dropdownOptionSelector),
           showOption = dropdown.querySelector(this._dropdownToggleSelector)
 

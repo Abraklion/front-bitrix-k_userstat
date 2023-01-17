@@ -1,7 +1,7 @@
 /**
  *  Панель для выпадающего списка, для раскрытия списка по горизонтали
  * */
-export default class Stretch {
+export default class StretchInSelectPlugin {
 
   /**
    * Конструктор

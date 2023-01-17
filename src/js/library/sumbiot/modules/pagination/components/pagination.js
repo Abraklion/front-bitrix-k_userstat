@@ -9,15 +9,22 @@ export default class Pagination extends PaginationCore{
    * Конструктор
    * @param {string | HTMLElement} paginationInSelector - куда на странице вставить навигацию.
    * @param {string | HTMLElement} resultInSelector - куда на странице вставить результат выборку.
-   * @param {Array} listElements - список элементов.
+   * @param {Array} listElements - список элементов (не как строка, а как Node).
    * @param {Object=} options - конфигурация.
    * @param {number} [options.perpage] - количество элементов на странице
    * @param {number} [options.page] - с какой страницы начинать (активная)
+   * @param {Object} [options.counter] - с какой страницы начинать (активная)
+   * @param {Boolean} [options.counter.active] - всклучить нумерацию
+   * @param {string} [options.counter.selectorForInserts] - куда в элементе вставить номер
    */
   constructor(paginationInSelector,resultInSelector,listElements,
               {
                 perpage = 25,
-                page = 1
+                page = 1,
+                counter = {
+                  active: false,
+                  selectorForInserts: '[data-sumbiot-page-counter]'
+                },
               } = {}) {
 
     super()
@@ -33,6 +40,9 @@ export default class Pagination extends PaginationCore{
     this._pagesCount = Math.ceil(this._countListElements / this._perpage) || 1; // кол-во страниц
 
     this._page = page // активная страница
+
+    // счетчик
+    counter.active ? this._counter = counter : ''
 
     this._init()
   }
@@ -79,8 +89,12 @@ export default class Pagination extends PaginationCore{
 
     let resSlice = this._listElements.slice(start, end)
 
+    if(this._counter) {
+      this._counterPage(start,resSlice)
+    }
+
     this.$resultInElement.innerHTML = ''
-    this.$resultInElement.insertAdjacentHTML('beforeend', resSlice.join(''))
+    this.$resultInElement.append(...resSlice)
 
     this._removeEventListenerClick()
 
@@ -98,9 +112,9 @@ export default class Pagination extends PaginationCore{
     this._countListElements = this._listElements.length || 0 // сколько всего элементов
     this._pagesCount = Math.ceil(this._countListElements / this._perpage) || 0; // кол-во страниц
 
-    (this._pagesCount < number || number < 1) ?
-      this._page = 1 :
-      this._page = number
+    this._page = (this._pagesCount < number) ? this._pagesCount :
+                 (number < 1) ? 1 :
+                 number
 
     this._switchPage()
   }
@@ -154,6 +168,22 @@ export default class Pagination extends PaginationCore{
       btn.removeEventListener('click', this._switchingHandler)
     })
     this.$paginationInElement.querySelector('.pagination')?.remove()
+  }
+
+  /**
+   * Нумерация элементов на страницы
+   * @param {number} start - начальная позиция
+   * @param {Array} slice - начальная позиция
+   * @return {void}
+   */
+  _counterPage(start,slice) {
+    let startNumber = start + 1;
+
+    slice.forEach(element => {
+      element.querySelector(this._counter.selectorForInserts).innerHTML = startNumber
+
+      startNumber++
+    })
   }
 
 }

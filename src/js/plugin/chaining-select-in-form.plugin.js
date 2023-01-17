@@ -53,6 +53,16 @@ export default class ChainingSelectInFormPlugin {
   }
 
   /**
+   * Добавляет новый метод к модалки, не изменяя исходный код класса(первоначальную реализацию) {паттерн Visitor}
+   * @return {this}
+   */
+  accept(visitor) {
+    visitor(this)
+
+    return this
+  }
+
+  /**
    * Инициализация плагина
    * @return {void}
    */
@@ -94,14 +104,14 @@ export default class ChainingSelectInFormPlugin {
     try {
 
       let idSelectA = option.dataset.selectOption,
-        formData = new FormData()
+          formData = new FormData()
 
       formData.append('id',idSelectA)
 
       this._resetSelectB()
 
       const response = await apiService.useRequest(this.callActionA,formData),
-        result = JSON.parse(response.data.result)
+            result = JSON.parse(response.data.result)
 
       if(Array.isArray(result) && result.length) {
 
@@ -123,20 +133,20 @@ export default class ChainingSelectInFormPlugin {
 
         console.group(`In file ApiService, in function , ${this.callActionA} promise return reject`)
 
-        console.group('List of errors')
+          console.group('List of errors')
 
-        error.errors.forEach(error => {
-          console.error(`Name: ${error.message}\n Code: ${error.code}\n customData: ${error.customData}`)
-        })
+          error.errors.forEach(error => {
+            console.error(`Name: ${error.message}\n Code: ${error.code}\n customData: ${error.customData}`)
+          })
 
-        console.groupEnd();
+          console.groupEnd();
 
         console.groupEnd();
 
       } else {
 
         console.group('In file ChainingSelectInFormPlugin, in function fillSelectB error')
-        console.error(`${error.stack}`)
+          console.error(`${error.stack}`)
         console.groupEnd();
 
       }
@@ -150,8 +160,8 @@ export default class ChainingSelectInFormPlugin {
    */
   _resetSelectB() {
     let toggle = this.$selectB.querySelector(this.resetParamsB.activeOption),
-      options = this.$selectB.querySelectorAll(this.resetParamsB.options),
-      input = this.$selectB.parentElement.querySelector(this.resetParamsB.input)
+        options = this.$selectB.querySelectorAll(this.resetParamsB.options),
+        input = this.$selectB.parentElement.querySelector(this.resetParamsB.input)
 
     // активный пункт
     toggle.innerText = ''

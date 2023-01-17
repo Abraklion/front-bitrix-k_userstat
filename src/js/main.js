@@ -1,18 +1,10 @@
+import './oldCode/scripts'
+
 import DropdownSelect from './library/sumbiot/modules/dropdown/components/dropdownSelect';
 
-import ChainingSelectInFormPlugin from "./plugin/chaining-select-in-form.plugin";
-
-// import Visitor from "./components/visitor";
-import SearchSelect from "./components/search-select";
-
-import {optionSelectTemplate} from "./templates/optionSelect.template";
+import SearchInSelectPlugin from "./plugin/search-in-select.plugin";
 
 $(function(){
-  // Адрес ссылки для AJAX
-  let zeroLink = BX.message("ZEROLINK");
-
-  // daterangepicker на поле с интервалом дат
-  $('#dataSob').daterangepicker();
 
   // выподающий список select
   new DropdownSelect('.dropdown--select',{
@@ -21,34 +13,9 @@ $(function(){
     dropdownOptionSelector: '.dropdown__item'
   })
 
-  // поиск по выпадающему списку
-  new SearchSelect('.js-option-panel','.dropdown__search-box')
+  // выподающий список поиск
+  new SearchInSelectPlugin('.js-option-panel','.dropdown__search-box')
 
-  // связываем выподающие списки Дивизион и Отдел
-  new ChainingSelectInFormPlugin('#mainForm',
-    {
-      callAction: 'getDepartments'
-    },
-    {
-      renderTemplate : optionSelectTemplate
-  })
-
-  $('#mainForm').on('click', '.searchButton', function(){
-    let sData = $('#mainForm').serialize();
-    sData += '&action=' + $(this).val();
-    $.ajax({
-      type: "POST",
-      url: zeroLink,
-      data: sData,
-      success: function( res ){
-        $('.data').remove();
-        $( res ).insertAfter('#insertPlace');
-      },
-      error: function( res ){
-        console.log('error get data from server');
-      }
-    });
-  });
 
   $('.js-btn-xl').on('click', async function(e) {
     e.preventDefault()

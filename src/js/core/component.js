@@ -8,9 +8,15 @@ export default class Component {
    * Конструктор
    * @param {string} id         - находит компонент.
    * @param {Object=} options   - конфигурация.
+   * @param {string|null} [options.create] - названи тега, генерировать компонент программно(по умолчанию отбирается со страницы)
    */
-  constructor(id,{} = {}) {
-    this.$el = document.querySelector(id)
+  constructor(id,{
+               create = null
+              } = {}) {
+
+    (!create) ? this.$el = document.querySelector(id) :
+                this.$el = document.createElement(create)
+                this.$el.setAttribute('id', id.slice(1))
 
     this._init()
   }
