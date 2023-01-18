@@ -54,9 +54,13 @@ export default class FormUsersStatisticsComponent extends Component {
       btn.addEventListener('click', e => {
         e.preventDefault()
 
+        let formData = new FormData(this.$el)
+        formData.append('build',btn.value)
+
         new ButtonExcelComponent('#buttonExcelDownload', {
           create: 'button',
-          formData: new FormData(this.$el)
+          formData,
+          action: 'getPathToFile'
         })
       })
     })

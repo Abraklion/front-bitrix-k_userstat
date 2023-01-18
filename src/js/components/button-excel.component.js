@@ -1,6 +1,6 @@
 import Component from "../core/component";
 
-// import {apiService} from "../services/api.service";
+import {apiService} from "../services/api.service";
 
 /**
  *  Компонент добавить кастомного сотрудника #mainForm
@@ -13,12 +13,14 @@ export default class ButtonExcelComponent extends Component {
    * @param {Object=} options   - конфигурация.
    * @param {string|null} [options.create] - названи тега, генерировать компонент программно(по умолчанию отбирается со страницы)
    * @param {Object} [options.formData] - данные с формы
+   * @param {string} [options.action] - обработчик на сервере
    */
   constructor(id,options) {
 
     super(id,options);
 
     this.formData = options.formData
+    this.action = options.action
   }
 
   /**
@@ -28,39 +30,63 @@ export default class ButtonExcelComponent extends Component {
   _init() {
     this._configureElement()
 
-    this.parent = document.querySelector('.js-form__buttons-inner')
+    this._append('.js-form__buttons-inner')
 
-    this.parent.querySelector(`#${this.$el.getAttribute('id')}`)?.remove()
-    this.parent.append(this.$el)
-
-    console.log('1')
-
-    this.$el.addEventListener('click', e => {
-      e.preventDefault()
-
-      console.log(this.formData)
-
-      for(let [name, value] of this.formData) {
-        console.log(`${name} = ${value}`); // key1=value1, потом key2=value2
-      }
-
-    })
+    this.$el.addEventListener('click', this._clickHandler)
 
   }
 
+  /**
+   * Конфигурация компонента (стили | атрибуты)
+   * @return {void}
+   */
   _configureElement() {
     this.$el.classList.add('button','button--icon-excel')
     this.$el.setAttribute('title', 'Скачать Excel')
   }
 
   /**
-   * Скачать Excel
+   * Куда вставить компонент в документ
+   * @param {string} parentElement - селектор элемента куда вставить
    * @return {void}
    */
-   _download = async (e) => {
-    e.preventDefault()
+  _append(parentElement) {
+    const $parent = document.querySelector(parentElement)
+
+    $parent.querySelector(`#${this.$el.getAttribute('id')}`)?.remove()
+    $parent.append(this.$el)
   }
 
+  /**
+   * Обработчик клика на компонент
+   * @return {void}
+   */
+   _clickHandler = async (e) => {
+     e.preventDefault()
 
+     const response = await apiService.useRequest(this.action,this.formData),
+           path = response.data.result
+
+     this.downloadLink(path)
+  }
+
+  /**
+   * Скачать Excel
+   * @param {string} path - путь к файлу который надо скачать
+   * @return {void}
+   */
+  downloadLink(path){
+    const element = document.createElement('a');
+
+    element.setAttribute('href', path);
+    element.setAttribute('download', '');
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
 
 }
