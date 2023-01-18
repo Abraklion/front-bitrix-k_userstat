@@ -24,6 +24,19 @@ export default class ButtonExcelComponent extends Component {
   }
 
   /**
+   * Обработчик клика на компонент
+   * @return {void}
+   */
+  _clickHandler = async (e) => {
+    e.preventDefault()
+
+    const response = await apiService.useRequest(this.action,this.formData),
+      path = response.data.result
+
+    this.downloadLink(path)
+  }
+
+  /**
    * Интерфейс компонента
    * @return {void}
    */
@@ -55,19 +68,6 @@ export default class ButtonExcelComponent extends Component {
 
     $parent.querySelector(`#${this.$el.getAttribute('id')}`)?.remove()
     $parent.append(this.$el)
-  }
-
-  /**
-   * Обработчик клика на компонент
-   * @return {void}
-   */
-   _clickHandler = async (e) => {
-     e.preventDefault()
-
-     const response = await apiService.useRequest(this.action,this.formData),
-           path = response.data.result
-
-     this.downloadLink(path)
   }
 
   /**

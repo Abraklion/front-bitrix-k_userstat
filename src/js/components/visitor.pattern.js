@@ -1,4 +1,3 @@
-import Support from '../core/support'
 
 /**
  *  Добавляет новую функциональность уже существующим классам, не изменяя исходный код класса
@@ -22,7 +21,7 @@ export default class VisitorPattern {
                 input = this.$selectB.parentElement.querySelector(this.resetParamsB.input)
 
             this.$pasteOptions.insertAdjacentHTML('afterbegin', `
-              <div class="dropdown__item" data-select-option="" title="Не выбран">
+              <div class="dropdown__item js-dropdown__item-empty" data-select-option="" title="Не выбран">
                 ---
               </div>
             `)
@@ -30,7 +29,14 @@ export default class VisitorPattern {
             input.setAttribute('value', idSelectA)
 
             btnDeps.disabled = false;
+          },
+          emptyOptionSelectorB = () => {
+            let inputA = this.$selectA.parentElement.querySelector('.sumbiot-input-select'),
+                inputB = this.$selectB.parentElement.querySelector('.sumbiot-input-select')
+
+            inputB.value = inputA.value
           }
+
 
       btnDeps.disabled = true;
 
@@ -45,6 +51,17 @@ export default class VisitorPattern {
           }
 
           workConfiguration(target)
+        }
+      })
+
+      this.$selectB.addEventListener('click', (e) => {
+        let target = e.target;
+
+        if (target && target.classList.contains('js-dropdown__item-empty') || target && target.parentElement.classList.contains('js-dropdown__item-empty') ) {
+          e.preventDefault()
+
+          emptyOptionSelectorB()
+
         }
       })
 
