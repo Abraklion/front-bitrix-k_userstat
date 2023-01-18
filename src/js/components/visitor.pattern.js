@@ -8,6 +8,7 @@ export default class VisitorPattern {
    * Посититель для экземпляра связаных выподающий списков
    * 1) блокикует кнопку если не выбран дивизион
    * 2) если выбран дивизион, в input отдела(выподающего списка В) записывается id дивизиона
+   * 3) если отдел(выподающего списка В) активный пункт сделали пустой в input отдела записовается id дивизиона
    * @param {Object} instanceClass - экземпляр класса
    * @return {void}
    */
@@ -16,6 +17,7 @@ export default class VisitorPattern {
     instanceClass.upgrade = function () {
 
       let btnDeps = document.querySelector('.js-btn-deps'),
+          // -2-
           workConfiguration = (option) => {
             let idSelectA = option.dataset.selectOption,
                 input = this.$selectB.parentElement.querySelector(this.resetParamsB.input)
@@ -30,6 +32,7 @@ export default class VisitorPattern {
 
             btnDeps.disabled = false;
           },
+          // -3-
           emptyOptionSelectorB = () => {
             let inputA = this.$selectA.parentElement.querySelector('.sumbiot-input-select'),
                 inputB = this.$selectB.parentElement.querySelector('.sumbiot-input-select')
@@ -37,7 +40,7 @@ export default class VisitorPattern {
             inputB.value = inputA.value
           }
 
-
+      // -1-
       btnDeps.disabled = true;
 
       this.$selectA.addEventListener('click', (e) => {
