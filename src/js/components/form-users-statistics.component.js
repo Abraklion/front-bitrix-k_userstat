@@ -64,7 +64,6 @@ export default class FormUsersStatisticsComponent extends Component {
         })
       })
     })
-
   }
 
 }

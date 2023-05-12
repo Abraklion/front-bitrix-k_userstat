@@ -55,12 +55,11 @@
     "gulp-webp": "^4.0.1",
     "panini": "^1.7.2",
     "sass": "^1.56.1",
-    "webpack": "^5.75.0",
-    "webpack-stream": "^6.1.2"
+    "webpack-stream": "^7.0.0"
   },
   "browserslist": [
-    "defaults",
-    "not IE 11",
-    "maintained node versions"
+    "last 1 version",
+    "> 1%",
+    "not dead"
   ]
 }

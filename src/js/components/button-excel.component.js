@@ -3,7 +3,7 @@ import Component from "../core/component";
 import {apiService} from "../services/api.service";
 
 /**
- *  Компонент добавить кастомного сотрудника #mainForm
+ *  Компонент добавить кнопку для выгрузки EXCEL #mainForm
  * */
 export default class ButtonExcelComponent extends Component {
 
@@ -27,9 +27,7 @@ export default class ButtonExcelComponent extends Component {
    * Обработчик клика на компонент
    * @return {void}
    */
-  _clickHandler = async (e) => {
-    e.preventDefault()
-
+  _clickHandler = async () => {
     const response = await apiService.useRequest(this.action,this.formData),
       path = response.data.result
 
@@ -45,7 +43,11 @@ export default class ButtonExcelComponent extends Component {
 
     this._append('.js-form__buttons-inner')
 
-    this.$el.addEventListener('click', this._clickHandler)
+    this.$el.addEventListener('click', (e) => {
+      e.preventDefault()
+
+      this._clickHandler()
+    })
 
   }
 

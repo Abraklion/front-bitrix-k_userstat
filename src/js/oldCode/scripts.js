@@ -10,6 +10,8 @@ $(function(){
     let sData = $('#mainForm').serialize();
     sData += '&action=' + $(this).val();
 
+    console.log(sData)
+
     $.ajax({
       type: "POST",
       url: zeroLink,
